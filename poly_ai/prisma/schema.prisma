@@ -1,0 +1,38 @@
+generator client {
+  provider = "prisma-client-py"
+  interface = "asyncio"
+  recursive_type_depth = 5
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Task {
+  id               Int       @id @default(autoincrement())
+  central_question String
+  analysis         Json?
+  created_at       DateTime  @default(now())
+  updated_at       DateTime  @updatedAt
+  subtasks         Subtask[]
+
+  @@map("tasks")
+}
+
+model Subtask {
+  id          Int      @id @default(autoincrement())
+  description String
+  findings    String?
+  sources     String?
+  agent_role  String
+  priority    String
+  status      String @default("PENDING")
+  task        Task     @relation(fields: [task_id], references: [id])
+  task_id     Int
+
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+
+  @@map("subtasks")
+} 

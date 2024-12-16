@@ -1,0 +1,24 @@
+{
+  "name": "app",
+  "version": "1.0.50",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "bun run --watch src/index.ts"
+  },
+  "dependencies": {
+    "@ai-sdk/openai": "^1.0.8",
+    "@elysiajs/cors": "^1.1.1",
+    "@elysiajs/swagger": "^1.1.6",
+    "@prisma/client": "^6.0.1",
+    "ai": "^4.0.16",
+    "bullmq": "^5.34.1",
+    "dotenv": "^16.4.7",
+    "elysia": "latest",
+    "ioredis": "^5.4.1",
+    "zod": "^3.24.1"
+  },
+  "devDependencies": {
+    "bun-types": "latest"
+  },
+  "module": "src/index.js"
+}

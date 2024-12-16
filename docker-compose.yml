@@ -1,0 +1,46 @@
+version: "3.8"
+
+services:
+  web:
+    build: .
+    ports:
+      - "3000:80"
+    volumes:
+      - .:/var/www/html
+    environment:
+      - MYSQL_HOST=db
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=root
+      - MYSQL_DATABASE=agent_db
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - internal
+
+  db:
+    image: mysql:8.0
+    ports:
+      - "3306:3306"
+    expose:
+      - "3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=agent_db
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./agent_db.sql:/docker-entrypoint-initdb.d/agent_db.sql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - internal
+
+volumes:
+  mysql_data:
+
+networks:
+  internal:
+    driver: bridge
