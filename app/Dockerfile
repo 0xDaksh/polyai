@@ -4,8 +4,7 @@ WORKDIR /usr/src/app
 COPY package*.json ./
 
 RUN npm i -g bun
-
-RUN bun
+RUN bun install
 
 COPY . .
 
