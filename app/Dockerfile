@@ -12,6 +12,8 @@ RUN bun run build
 
 FROM node:lts-bullseye-slim
 
+RUN npm i -g bun
+
 ENV NODE_ENV production
 ENV NEW_RELIC_NO_CONFIG_FILE=true
 ENV NEW_RELIC_DISTRIBUTED_TRACING_ENABLED=true
