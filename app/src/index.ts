@@ -73,6 +73,7 @@ app.get("/prediction/:id", async ({ params }) => {
 app.get("/predictions", async () => {
   const predictions = await prisma.prediction.findMany({
     include: { subtasks: true },
+    orderBy: { createdAt: "desc" },
   });
 
   return predictions;
