@@ -3,7 +3,8 @@
   "version": "1.0.50",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "bun run --watch src/index.ts"
+    "dev": "bun run --watch src/index.ts",
+    "build": "prisma generate && rimraf dist/ && bun build src/index.ts --outdir ./dist --splitting --bundle --target bun --sourcemap --minify"
   },
   "dependencies": {
     "@ai-sdk/openai": "^1.0.8",
@@ -18,7 +19,9 @@
     "zod": "^3.24.1"
   },
   "devDependencies": {
-    "bun-types": "latest"
+    "bun-types": "latest",
+    "prisma": "^6.1.0",
+    "rimraf": "^6.0.1"
   },
   "module": "src/index.js"
 }
